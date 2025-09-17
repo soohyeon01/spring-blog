@@ -51,7 +51,7 @@ public class WebSecurityConfig {
     }
 
     /*
-        구버전 코드라 아예 바꿔야 함
+        구버전 코드라 아예 바꿔야 함 자세한 내용과 함께 블로그에 정리해두기
         @Bean
         public AuthenticationManager authenticationManager(HttpSecurity http,
                                                            BCryptPasswordEncoder passwordEncoder,
