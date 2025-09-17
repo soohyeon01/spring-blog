@@ -7,7 +7,10 @@ spring:
 #  thymeleaf:
 #    prefix: classpath:/templates/
 #    suffix: .html
-
+  h2:
+    console:
+      enabled: true
+#      위의 코드가 하는 역할이 뭐지?
   jpa:
     show_sql: true
     hibernate:
@@ -18,9 +21,11 @@ spring:
         format_sql: true
 #        default_batch_fetch_size: 1000
 
-
-
 logging:
   level:
     org.hibernate.SQL: debug
 #    org.hibernate.orm.jdbc.bind: trace000
+
+jwt:
+  issuer: tngus@gmail.com
+  secret_key: study-springboot
