@@ -17,3 +17,7 @@ logging:
   level:
     org.hibernate.SQL: debug
 #    org.hibernate.orm.jdbc.bind: trace
+
+jwt:
+  issuer: myapp
+  secret-key: "this-is-a-very-secure-32-byte-key-123456"  # 32바이트 이상 문자열
