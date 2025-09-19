@@ -40,10 +40,10 @@ public class WebSecurityConfig {
                 )  // spring security 6.1 버전 이상에서 람다 블럭 안에서 선언하는 방식으로 교체됨
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/articles")
+                        .defaultSuccessUrl("/articles").permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/login").permitAll()
                         .invalidateHttpSession(true)
                 )
                 .csrf(AbstractHttpConfigurer::disable);
