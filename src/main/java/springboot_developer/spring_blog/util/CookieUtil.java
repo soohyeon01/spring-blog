@@ -1,15 +1,17 @@
 package springboot_developer.spring_blog.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.util.SerializationUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Base64;
 
 /**
+ * 쿠키가 필요할 때 마다 생성하고 삭제하는 로직을 추가하면 불편하므로
  * 유틸리티로 사용할 쿠키 관리 클래스 구현
  */
 public class CookieUtil {
@@ -37,22 +39,22 @@ public class CookieUtil {
         }
     }
 
-    // 객체를 직렬화해 쿠키의 값으로 변환
     public static String serialize(Object obj) {
         return Base64.getUrlEncoder()
                 .encodeToString(SerializationUtils.serialize(obj));
     }
 
-    // 쿠키를 역직렬화해 객체로 변환
-    /**
-     *  보안상의 문제로 "deserialize(byte[])' is deprecated" 되어
-     *  Jackson 라이브러리를 사용하여 객체로 변환하는 방법 선택
-     */
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static <T> T deserialize(Cookie cookie, Class<T> cls) {
+        if (cookie == null || cookie.getValue() == null) return null;
 
-    public static <T> T deserialize(Cookie cookie, Class<T> cls) throws IOException {
-        return objectMapper.readValue(
-                Base64.getUrlDecoder().decode(cookie.getValue()), cls
-        );
+        byte[] data = Base64.getUrlDecoder().decode(cookie.getValue());
+        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data))) {
+            Object obj = ois.readObject();
+            return cls.cast(obj);
+        } catch (IOException | ClassNotFoundException e) {
+            // 연습용이라 간단히 RuntimeException으로 처리했지만,
+            // 실무에서는 로그 남기고 null 반환하거나 쿠키 만료 처리하는 편이 안전
+            throw new RuntimeException("Failed to deserialize cookie", e);
+        }
     }
 }
