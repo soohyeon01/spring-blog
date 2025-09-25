@@ -30,10 +30,23 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    // 리소스 서버에서 제공해주는 이름을 받을 필드
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+    
+    /* 사용자 이름 변경 */
+    /* 사용자 정보가 있다면 리소스 서버에서 제공해주는 이름을 업데이트하고, 없다면 새 사용자를 생성해 DB에 저장하는 서비스 구현 */
+    public User update(String nickname) {
+        this.nickname = nickname;
+
+        return this;
     }
 
     /* 권한 반환 */
