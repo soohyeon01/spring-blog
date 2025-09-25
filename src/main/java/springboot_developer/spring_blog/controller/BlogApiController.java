@@ -10,6 +10,7 @@ import springboot_developer.spring_blog.dto.ArticleResponse;
 import springboot_developer.spring_blog.dto.UpdateArticleRequest;
 import springboot_developer.spring_blog.service.BlogService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,8 +20,9 @@ public class BlogApiController {
     private final BlogService blogService;
 
     @PostMapping("/api/articles")   // 글을 등록하는 API
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(
+            @RequestBody AddArticleRequest request, Principal principal) {  // 현재 인증 정보를 가져오는 principal 객체를 파라미터로 추가
+        Article savedArticle = blogService.save(request, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
