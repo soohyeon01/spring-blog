@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:tcp://localhost/~/springblog}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
 
 #  thymeleaf:
 #    prefix: classpath:/templates/
@@ -25,15 +25,15 @@ spring:
       client:
         registration:
           google:
-            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID}
-            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET}
+            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID:dummy-google-id}
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET:dummy-google-secret}
             scope:
               - email
               - profile
 
 jwt:
-  issuer: ${JWT_ISSUER}
-  secret-Key: ${JWT_SECRET_KEY}
+  issuer: ${JWT_ISSUER:local-issuer}
+  secret-Key: ${JWT_SECRET_KEY:test-secret-key-default-value-should-be-at-least-32-chars-long-1234}
 
 #  오류수정
 
