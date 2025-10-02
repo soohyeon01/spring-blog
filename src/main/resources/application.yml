@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/springblog
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
 #  thymeleaf:
 #    prefix: classpath:/templates/
 #    suffix: .html
@@ -20,11 +20,22 @@ spring:
       hibernate:
         format_sql: true
 #        default_batch_fetch_size: 1000
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID}
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET}
+            scope:
+              - email
+              - profile
 
 jwt:
-  issuer: tngus@gmail.com
-  secret-Key: studySpringboot
-#  변수명 맞춰서 다시 - 수정
+  issuer: ${JWT_ISSUER}
+  secret-Key: ${JWT_SECRET_KEY}
+
+#  오류수정
 
 logging:
   level:

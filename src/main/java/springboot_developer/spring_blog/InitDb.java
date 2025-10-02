@@ -34,22 +34,22 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            Article article = createArticle("제목 1", "내용 1", LocalDateTime.now(), LocalDateTime.now());
+            Article article = createArticle("제목 1", "내용 1", "user1" ,LocalDateTime.now(), LocalDateTime.now());
             em.persist(article);
         }
 
         public void dbInit2() {
-            Article article = createArticle("제목 2", "내용 2", LocalDateTime.now(), LocalDateTime.now());
+            Article article = createArticle("제목 2", "내용 2", "user2", LocalDateTime.now(), LocalDateTime.now());
             em.persist(article);
         }
 
         public void dbInit3() {
-            Article article = createArticle("제목 3", "내용 3", LocalDateTime.now(), LocalDateTime.now());
+            Article article = createArticle("제목 3", "내용 3", "user3", LocalDateTime.now(), LocalDateTime.now());
             em.persist(article);
         }
 
-        private Article createArticle(String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
-            return new Article(title, content, createdAt, updatedAt);
+        private Article createArticle(String title, String content, String author, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            return new Article(title, content, author, createdAt, updatedAt);
         }
 
     }
